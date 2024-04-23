@@ -58,7 +58,7 @@ class MyAgent(Agent):
         new_y = (self.actuation.position[1] + dy) % self.config['world_height']
         self.set_position(new_x, new_y, self.actuation.angle)
             
-        print(f"Updated position: ({new_x}, {new_y}), heading: {self.actuation.angle}")
+        #print(f"Updated position: ({new_x}, {new_y}), heading: {self.actuation.angle}")
 
 
 

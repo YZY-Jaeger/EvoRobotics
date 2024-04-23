@@ -43,7 +43,7 @@ class MyController(Actuation):
         self.agent.set_position(new_x, new_y, new_heading)
 
         # Print out the values for debugging
-        print(f"x: {x}, y: {y}, gamma: {gamma}, dx: {dx}, dy: {dy}, new_x: {new_x}, new_y: {new_y}, new_heading: {new_heading}")
+        #print(f"x: {x}, y: {y}, gamma: {gamma}, dx: {dx}, dy: {dy}, new_x: {new_x}, new_y: {new_y}, new_heading: {new_heading}")
 
     def controller(self):
         """
