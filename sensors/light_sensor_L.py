@@ -40,6 +40,6 @@ class LightIntensitySensor_L(Perception):
 
         light_intensity = (r + g + b) / (3*255)  # Average of RGB values
         print("x: ", int(robot_position_x), "y: ", int(robot_position_y))#print coordinates of the robot
-        print("Light Intensity: ", light_intensity)#print light intensity
+        print("Light Intensity L: ", light_intensity)#print light intensity
 
         return light_intensity#to be used in controller

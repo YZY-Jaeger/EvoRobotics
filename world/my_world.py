@@ -24,12 +24,21 @@ class My_environment(Environment):
         Returns:
         """
 
-        """//removing walls
-        self.staticRectList.append(['BLACK', pygame.Rect(5, 5, self.config['world_width'] - 10, 5),5])
-        self.staticRectList.append(['BLACK', pygame.Rect(5, 5, 5, self.config['world_height']-10), 5])
-        self.staticRectList.append(['BLACK', pygame.Rect(5, self.config['world_height']-10, self.config['world_width'] - 10,5), 5])
-        self.staticRectList.append(['BLACK', pygame.Rect(self.config['world_width'] - 10, 5, 5, self.config['world_height']-10), 5])
+
+    def add_static_rectangle_object(self):
         """
+        Add static rectangle object to the environment such as walls or obstacles.
+        Example:
+            self.staticRectList.append(color, pygame.Rect(x, y, width, height), border_width))
+        Returns:
+        """
+
+        wall_thickness = 10  # Increase this value to make the walls thicker
+
+        self.staticRectList.append(['BLACK', pygame.Rect(5, 5, self.config['world_width'] - wall_thickness, wall_thickness), wall_thickness])
+        self.staticRectList.append(['BLACK', pygame.Rect(5, 5, wall_thickness, self.config['world_height'] - wall_thickness), wall_thickness])
+        self.staticRectList.append(['BLACK', pygame.Rect(5, self.config['world_height'] - wall_thickness, self.config['world_width'] - wall_thickness, wall_thickness), wall_thickness])
+        self.staticRectList.append(['BLACK', pygame.Rect(self.config['world_width'] - wall_thickness, 5, wall_thickness, self.config['world_height'] - wall_thickness), wall_thickness])
 
     def add_static_circle_object(self):
         """
@@ -51,8 +60,8 @@ class My_environment(Environment):
         For displaying a light distribution you might find pygame.surfarray.make_surface and self.displaySurface.blit useful)
         Returns:
         """
-        self.displaySurface.blit(self.light_dist_surface, (0, 0))  # Draw the precalculated light distribution on the display surface
-
+        #self.displaySurface.blit(self.light_dist_surface, (0, 0))  # Draw the precalculated light distribution on the display surface
+        self.displaySurface.fill(self.BACKGROUND_COLOR)
     ###  LIGHT DISTRIBUTION ###
 
     def defineLight(self):
@@ -60,15 +69,17 @@ class My_environment(Environment):
         Define the light distribution of the environment.
         Returns: 3 dimensional light distribution tuple (x,y,light_intensity)
         """
+
+        
         light_source_position = np.array([self.config['world_width'] / 2, self.config['world_height'] / 2])
-        max_light_intensity = 100  # Maximum light intensity at the source
+        max_light_intensity = 60  # Maximum light intensity at the source
 
         light_dist = np.zeros((self.config['world_width'], self.config['world_height']))
 
         for x in range(self.config['world_width']):
             for y in range(self.config['world_height']):
                 distance = np.linalg.norm(np.array([x, y]) - light_source_position)
-                light_dist[x, y] = max(0, max_light_intensity - distance)
+                light_dist[x, y] = max(0, max_light_intensity - distance/3)
 
         return light_dist
-
+       

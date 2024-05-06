@@ -82,6 +82,7 @@ class MyController(Actuation):
         robot_position_x, robot_position_y, robot_heading = self.agent.get_position()
 
         # Implement torus world by manipulating the robot position, here.
+
         robot_position_x = robot_position_x % self.config['world_width']
         robot_position_y = robot_position_y % self.config['world_height']
 

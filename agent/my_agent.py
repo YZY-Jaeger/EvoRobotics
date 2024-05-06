@@ -1,10 +1,10 @@
 from swarmy.agent import Agent
 import random
 import pygame
-import numpy as np
+
 class MyAgent(Agent):
-    def __init__(self, environment, controller, sensor, config):
-        super().__init__(environment, controller, sensor, config)
+    def __init__(self,environment,controller, sensor, config):
+        super().__init__(environment,controller, sensor, config)
 
         self.environment = environment
         self.trajectory = []
@@ -21,7 +21,11 @@ class MyAgent(Agent):
         y = random.randint(0, self.config['world_height'])
 
         gamma = random.randint(0, 360)
+        self.actuation.position[0] = x
+        self.actuation.position[1] = y
+        self.actuation.angle = gamma
         self.set_position(x, y, gamma)
+
 
     def save_information(self, last_robot):
         """
@@ -35,30 +39,6 @@ class MyAgent(Agent):
 
         pass
 
-
-
-    def update_position(self, speed, turn_angle):
-        """
-        Update the agent's position and heading over time.
-        """
-        # Limit the speed and turn angle to their maximum values
-        speed = min(speed, self.config['max_speed'])
-        turn_angle = min(turn_angle, self.config['max_turn_angle'])
-
-        # Calculate the change in position
-        dx = speed * np.cos(np.radians(self.actuation.angle))
-        dy = speed * np.sin(np.radians(self.actuation.angle))
-
-        # Update the heading
-        self.actuation.angle += turn_angle
-        self.actuation.angle %= 360  # Ensure the heading is between 0 and 360
-
-        # Update the position
-        new_x = (self.actuation.position[0] + dx) % self.config['world_width']
-        new_y = (self.actuation.position[1] + dy) % self.config['world_height']
-        self.set_position(new_x, new_y, self.actuation.angle)
-            
-        #print(f"Updated position: ({new_x}, {new_y}), heading: {self.actuation.angle}")
 
 
 
